@@ -4,6 +4,11 @@ import React  from 'react';
 import HomePage from './Homepage.js';
 import { Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 import MoviePage from './MoviePage.js';
+import { connect } from "react-redux";
+import {
+  maciVogelAction,
+  arushiPushiAction,
+} from "./actions/action"
 
 const mocData = [
     
@@ -34,11 +39,14 @@ const mocData = [
 ]
 
 
+
+
+
+
 class App extends React.Component{
 
   state = {
-    allMovies: mocData
-  }
+    allMovies: mocData}
 
 
     renderMovies = (routerProps) => {
@@ -47,12 +55,23 @@ class App extends React.Component{
       return (foundMovie? <MoviePage movie={foundMovie}/> : "Nope")
     }
 
+    componentDidMount(){
+      console.log(this.props)
+      setTimeout(()=>{
+        this.props.arushiPushiAction()
+        setTimeout(()=>{
+          this.props.maciVogelTrigerAction()
+        },100)
+      },5000)
+    }
+
   render(){
 
     
     return (
       <div>
-        <Route exact path = '/' component = {HomePage} allMovies={this.state.allMovies} />
+        <h1>ANXHIS FAV ANIMAL {this.props.sssssssss}</h1>
+        <Route path = '/' render={(props) => (<HomePage {...props} allMovies={this.state.allMovies} />)}/>
         <Route path = '/movie/:id' render = {routerProps => this.renderMovies(routerProps)} />
         
       </div>
@@ -60,4 +79,19 @@ class App extends React.Component{
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    sssssssss: state.anxhis.activeAnimal,
+    ss: state.anxhis.activeAnimal
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    maciVogelTrigerAction: () => dispatch(maciVogelAction()),
+
+    arushiPushiAction: () => dispatch(arushiPushiAction()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

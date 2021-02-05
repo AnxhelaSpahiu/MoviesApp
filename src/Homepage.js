@@ -64,14 +64,14 @@ class SearchBar extends React.Component{
 }
 
 class MovieContainer extends React.Component{
-   constructor(props){
-      super(props)
-   }
+//    constructor(props){
+//       super(props)
+//    }
    
     renderShirtsNav = () => {
-            /*let aShirt = this.props.allKindsMovies.map(shirtObj => <Link to = {`/movie/${shirtObj.id}`}> <Movies {...shirtObj}/> </Link> )
-            return aShirt*/
-            console.log(this.props.allKindsMovies)
+            let aShirt = this.props.allKindsMovies.map(shirtObj => <Link to = {`/movie/${shirtObj.id}`}> <Movies {...shirtObj}/> </Link> )
+            return aShirt
+           
         }
 render(){
         
@@ -98,7 +98,7 @@ class HomePage extends React.Component{
     }
 
     gibBack = (smth) =>{
-        const filteredMovies = this.props.allKindsMovies.filter(
+        const filteredMovies = this.props.allMovies.filter(
             (movie) => movie.movieName.toLowerCase().includes(smth.toLowerCase())
           );
     
@@ -128,7 +128,7 @@ class HomePage extends React.Component{
           (
             <MovieContainer allKindsMovies={this.props.allMovies}/> )
           }
-        <hr></hr>
+       
         
          
         </div>
